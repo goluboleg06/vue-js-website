@@ -5,6 +5,7 @@
         <img src="./assets/car-logo.png" class="logo-img">
         <router-link to="/">Головна</router-link>
         <router-link to="/cars">Каталог</router-link>
+        <router-link to="/addcar">Додати авто</router-link>
         <router-link to="/compare">Порівняти автомобілі</router-link>
         <router-link to="/consultation">Консультація</router-link>
         <router-link to="/contacts">Наші контакти</router-link>
@@ -25,7 +26,6 @@ export default
 <style>
 nav {
   background-color: #fc840c;
-  overflow: hidden;
 }
 
 nav a {
@@ -34,8 +34,8 @@ nav a {
   color: #f2f2f2;
   text-align: center;
   padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+  text-decoration: line-through;
+  font-size: 19px;
 }
 
 nav a:hover {
@@ -58,12 +58,11 @@ body
 
 #app 
 {
-  margin: auto;
+
   padding: 25px;
 }
 
 header {
-          padding: 10px;
           text-align: center;
           border-bottom: 2px solid #000;
       }
@@ -86,10 +85,6 @@ nav a
   font-weight: bold;
 }
 
-nav a:hover 
-{
-  text-decoration: underline;
-}
 
 h1 
 {

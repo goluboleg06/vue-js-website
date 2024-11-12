@@ -14,8 +14,12 @@ export const addCarToFirebase = async (car) => {
 };
 
 export const deleteCarFromFirebase = async (carId) => {
-  const carDoc = doc(db, 'carListData', carId);
-  await deleteDoc(carDoc);
+  try {
+    const carDoc = doc(db, 'carListData', carId);
+    await deleteDoc(carDoc);
+  } catch (error) {
+    console.error('Error deleting car from Firebase:', error);
+  }
 };
 
 export const fetchConsultations = async () => {
@@ -26,12 +30,6 @@ export const fetchConsultations = async () => {
 export const addConsultationToFirebase = async (consultation) => {
   await addDoc(consultationsCollection, consultation);
 };
-
-
-
-
-
-
 
 
 

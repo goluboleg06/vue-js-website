@@ -9,20 +9,17 @@
       :key="car.id"
       :carData="car"
     />
-    <AddCar />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import CarItem from './CarItem.vue';
-import AddCar from './AddCar.vue';
 
 export default {
   name: 'CarList',
   components: {
-    CarItem,
-    AddCar
+    CarItem
   },
   data() {
     return {

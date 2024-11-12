@@ -19,7 +19,7 @@ const store = createStore({
       return state.carListData;
     },
     selectedCars: (state) => state.selectedCars,
-    consultations: (state) => state.consultation
+    consultations: (state) => state.consultations
   },
   mutations: {
     SET_CAR_LIST_DATA(state, carListData) {
@@ -57,8 +57,12 @@ const store = createStore({
       commit('ADD_CAR', car);
     },
     async deleteCar({ commit }, carId) {
-      await deleteCarFromFirebase(carId);
-      commit('REMOVE_CAR', carId);
+      try {
+        await deleteCarFromFirebase(carId);
+        commit('REMOVE_CAR', carId);
+      } catch (error) {
+        console.error('Error deleting car:', error);
+      }
     },
     setSortOrder({ commit }, order) {
       commit('SET_SORT_ORDER', order);
@@ -76,8 +80,8 @@ const store = createStore({
     async addConsultation({ commit }, consultation) { 
       await addConsultationToFirebase(consultation); 
       commit('ADD_CONSULTATION', consultation);
-  }
-},
+    }
+  },
   modules: {},
 });
 
