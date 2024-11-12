@@ -1,6 +1,5 @@
-// src/store.js
 import { createStore } from 'vuex';
-import { fetchCarListData, addCarToFirebase, deleteCarFromFirebase } from './Helpers/dbHelper';
+import { fetchCarListData, addCarToFirebase, deleteCarFromFirebase, fetchConsultations, addConsultationToFirebase } from './Helpers/dbHelper';
 
 const store = createStore({
   state: {
@@ -8,6 +7,7 @@ const store = createStore({
     sortKey: 'price',
     sortOrder: 'asc',
     selectedCars: [null, null],
+    consultations: []
   },
   getters: {
     sortedItems: (state) => {
@@ -19,6 +19,7 @@ const store = createStore({
       return state.carListData;
     },
     selectedCars: (state) => state.selectedCars,
+    consultations: (state) => state.consultation
   },
   mutations: {
     SET_CAR_LIST_DATA(state, carListData) {
@@ -39,6 +40,12 @@ const store = createStore({
     SELECT_CAR(state, { index, car }) {
       state.selectedCars[index] = car;
     },
+    SET_CONSULTATIONS(state, consultations) { 
+      state.consultations = consultations; 
+    }, 
+    ADD_CONSULTATION(state, consultation) { 
+      state.consultations.push(consultation); 
+    }
   },
   actions: {
     async fetchCarListData({ commit }) {
@@ -61,8 +68,16 @@ const store = createStore({
     },
     selectCar({ commit }, payload) {
       commit('SELECT_CAR', payload);
-    }
-  },
+    },
+    async fetchConsultations({ commit }) { 
+      const consultations = await fetchConsultations(); 
+      commit('SET_CONSULTATIONS', consultations); 
+    }, 
+    async addConsultation({ commit }, consultation) { 
+      await addConsultationToFirebase(consultation); 
+      commit('ADD_CONSULTATION', consultation);
+  }
+},
   modules: {},
 });
 
